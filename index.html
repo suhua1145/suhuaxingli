@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>深度心理评估</title>
+<style>
+*{margin:0;padding:0}
+/* ===== 阶段0：现代UI（Q1-Q9） ===== */
+body.stage0{background:#f5f5f5;color:#222;font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;max-width:600px;margin:0 auto;padding:20px 16px;min-height:100vh;position:relative;transition:all .6s}
+body.stage0 .header{margin-bottom:20px}
+body.stage0 .header h1{font-size:22px;font-weight:600;color:#222}
+body.stage0 .header p{font-size:14px;color:#888;margin-top:4px}
+body.stage0 .card{background:#fff;border-radius:12px;padding:24px 20px;box-shadow:0 1px 6px rgba(0,0,0,.08);border:none}
+body.stage0 .q-num{font-size:13px;color:#999;margin-bottom:10px}
+body.stage0 .q-title{font-size:18px;font-weight:500;color:#222;line-height:1.6;margin-bottom:20px}
+body.stage0 .option{padding:13px 16px;border:1.5px solid #e0e0e0;border-radius:10px;cursor:pointer;background:#fafafa;font-size:15px;color:#333;transition:.15s;user-select:none}
+body.stage0 .option:hover{border-color:#aaa;background:#f0f0f0}
+body.stage0 .option.selected{border-color:#222;background:#f5f5f5;color:#222}
+body.stage0 .btn{padding:10px 24px;border:none;border-radius:8px;font-size:15px;cursor:pointer;background:#e0e0e0;color:#222;font-weight:500;transition:.15s;font-family:inherit}
+body.stage0 .btn:hover{opacity:.8}
+body.stage0 .btn:disabled{opacity:.3;cursor:default}
+body.stage0 .btn-primary{background:#222;color:#fff}
+body.stage0 .btn-submit{background:#d32f2f;color:#fff}
+body.stage0 .progress-bar{height:6px;background:#e0e0e0;border-radius:3px}
+body.stage0 .progress-fill{height:100%;width:0%;background:#555;border-radius:3px}
+body.stage0 .progress-text{font-size:13px;color:#666;min-width:40px;text-align:right}
+body.stage0 .welcome .btn-start{padding:12px 48px;border:none;border-radius:8px;background:#222;color:#fff;font-size:16px;cursor:pointer}
+body.stage0 .btn-danger{background:#d32f2f;color:#fff;border:none;border-radius:8px;animation:none;padding:10px 24px;font-size:15px}
+/* ===== 阶段1：轻微崩坏（Q10-Q18） ===== */
+body.stage1{background:#0a0a0a;color:#bbb;font-family:"宋体","SimSun","Courier New",monospace;max-width:600px;margin:0 auto;padding:18px 14px;min-height:100vh;position:relative;font-size:13px;transition:all .6s}
+body.stage1 .header{border-bottom:2px solid #333;padding-bottom:6px}
+body.stage1 .header h1{font-size:19px;color:#b00;letter-spacing:2px;text-shadow:1px 1px 0 #300}
+body.stage1 .header p{font-size:12px;color:#555;margin-top:2px}
+body.stage1 .card{background:#111;padding:20px 16px;border:2px solid #333;border-radius:0;box-shadow:inset 0 0 8px rgba(200,0,0,.05)}
+body.stage1 .q-num{font-size:10px;color:#555;margin-bottom:8px}
+body.stage1 .q-title{font-size:14px;color:#ccc;line-height:1.7;margin-bottom:16px}
+body.stage1 .option{padding:10px 12px;border:2px solid #2a2a2a;cursor:pointer;background:#0a0a0a;font-size:13px;color:#999;border-radius:0;transition:.08s;user-select:none}
+body.stage1 .option:hover{border-color:#555;background:#151515;color:#ddd}
+body.stage1 .option.selected{border-color:#b00;background:#150303;color:#b00;font-weight:700}
+body.stage1 .btn{padding:8px 18px;border:2px solid #3a3a3a;font-size:12px;cursor:pointer;background:#0a0a0a;color:#888;font-family:inherit;border-radius:0;transition:.08s}
+body.stage1 .btn:hover{background:#151515;color:#eee;border-color:#666}
+body.stage1 .btn:disabled{opacity:.25;cursor:default}
+body.stage1 .btn-primary{background:#1a0505;color:#c00;border-color:#500}
+body.stage1 .btn-submit{background:#2a0000;color:#f33;border-color:#900}
+body.stage1 .progress-bar{height:5px;background:#1a1a1a;border:1px solid #333;border-radius:0}
+body.stage1 .progress-fill{height:100%;width:0%;background:#b00}
+body.stage1 .progress-text{font-size:11px;color:#666;min-width:32px;text-align:right}
+body.stage1 .welcome .btn-start{padding:10px 40px;border:3px solid #c00;background:#100;color:#c00;font-size:14px;cursor:pointer;font-family:inherit;border-radius:0}
+/* ===== 阶段2：完全崩坏（Q19-Q30） ===== */
+body.stage2{background:url('glitch_bg.jpg') center/cover fixed no-repeat #000;color:#888;font-family:"宋体","SimSun","MS Gothic",monospace;max-width:640px;margin:0 auto;padding:12px;min-height:100vh;position:relative;font-size:12px;-webkit-font-smoothing:none;transition:all .6s}
+body.stage2::after{content:'';position:fixed;top:0;left:0;width:100%;height:100%;background:repeating-linear-gradient(0deg,rgba(0,0,0,.15) 0px,rgba(0,0,0,.15) 2px,transparent 2px,transparent 4px);pointer-events:none;z-index:9997}
+body.stage2 .header{border-bottom:3px double #222;padding-bottom:5px;margin-bottom:12px}
+body.stage2 .header h1{font-size:15px;color:#800;letter-spacing:4px;text-shadow:1px 1px 0 #200,2px 2px 0 #100}
+body.stage2 .header p{font-size:9px;color:#333;margin-top:1px;letter-spacing:2px}
+body.stage2 .card{background:#080808;padding:14px 12px;border:2px solid #1a1a1a;box-shadow:inset 0 0 15px rgba(200,0,0,.08)}
+body.stage2 .q-num{font-size:8px;color:#333;margin-bottom:6px;letter-spacing:2px}
+body.stage2 .q-title{font-size:12px;color:#999;line-height:1.9;margin-bottom:12px;letter-spacing:.5px}
+body.stage2 .option{padding:7px 9px;border:2px solid #1a1a1a;cursor:pointer;background:#050505;font-size:11px;color:#666;border-radius:0;transition:0s;user-select:none}
+body.stage2 .option:hover{border-color:#333;background:#0a0a0a;color:#aaa}
+body.stage2 .option.selected{border-color:#800;background:#0a0202;color:#a00;font-weight:700}
+body.stage2 .btn{padding:5px 12px;border:2px solid #2a2a2a;font-size:10px;cursor:pointer;background:#050505;color:#555;font-family:inherit;letter-spacing:1px;border-radius:0;transition:0s}
+body.stage2 .btn:hover{background:#0a0a0a;color:#aaa;border-color:#444}
+body.stage2 .btn:disabled{opacity:.15;cursor:default}
+body.stage2 .btn-primary{background:#0a0202;color:#a00;border-color:#400}
+body.stage2 .btn-submit{background:#1a0000;color:#c00;border-color:#600}
+body.stage2 .progress-bar{height:3px;background:#0a0a0a;border:1px solid #1a1a1a}
+body.stage2 .progress-fill{height:100%;width:0%;background:#800}
+body.stage2 .progress-text{font-size:8px;color:#333;min-width:28px;text-align:right}
+body.stage2 .welcome .btn-start{padding:6px 28px;border:3px solid #600;background:#050000;color:#800;font-size:11px;cursor:pointer;font-family:inherit;letter-spacing:3px;border-radius:0}
+/* 共享 */
+.progress-wrap{display:flex;align-items:center;gap:8px;margin-bottom:16px}
+.options{display:flex;flex-direction:column;gap:6px}
+.btn-row{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}
+.btn-row .spacer{flex:1}
+.welcome{text-align:center;padding:30px 0}
+.welcome h2{font-size:22px;margin-bottom:12px}
+.welcome p{font-size:14px;line-height:1.8;margin-bottom:28px}
+.result{text-align:center;padding:16px 0}
+.result h2{font-size:16px;margin-bottom:6px}
+.result .summary{font-size:12px;margin-bottom:16px;line-height:1.7;color:#666}
+.result-list{text-align:left;max-height:260px;overflow-y:auto}
+.result-item{padding:8px 0;border-bottom:1px solid #222}
+.result-item:last-child{border:none}
+.result-item .rq{font-size:12px;font-weight:700;margin-bottom:2px}
+.result-item .ra{font-size:11px;color:#666}
+.btn-danger{background:#300;color:#f33;font-size:13px;padding:8px 24px;border:3px solid #c00;animation:pulse2 .8s ease-in-out infinite alternate}
+@keyframes pulse2{0%{box-shadow:0 0 4px rgba(255,0,0,.2)}100%{box-shadow:0 0 18px rgba(255,0,0,.5)}}
+/* glitch覆盖层 */
+.glitch-overlay{position:fixed;top:0;left:0;width:100%;height:100%;z-index:9999;pointer-events:none;display:none;image-rendering:pixelated}
+.glitch-overlay.active{display:block}
+.glitch-bg{position:absolute;top:0;left:0;width:100%;height:100%;background:url('glitch_bg.jpg') center/cover no-repeat;opacity:0;transition:opacity .3s ease}
+.glitch-overlay.active .glitch-bg{opacity:0.7}
+.glitch-overlay canvas{position:absolute;top:0;left:0;width:100%;height:100%;image-rendering:pixelated;background:transparent}
+.glitch-rows{position:absolute;top:0;left:0;width:100%;height:100%;overflow:hidden}
+.glitch-row{position:absolute;left:-10%;width:120%;font-weight:900;text-align:center;white-space:nowrap;letter-spacing:8px;text-shadow:0 0 4px rgba(255,0,0,.9),0 0 8px rgba(255,0,0,.6),2px 0 0 rgba(255,255,0,.15),-2px 0 0 rgba(0,255,255,.1);animation:rg .12s ease infinite alternate;color:#ff0000;font-family:"宋体","SimSun","MS Gothic",monospace;-webkit-font-smoothing:none}
+@keyframes rg{0%{opacity:.2;transform:translateX(-6px) scaleX(1)}100%{opacity:1;transform:translateX(6px) scaleX(1.02)}}
+.shake{animation:sk .06s ease 8}
+@keyframes sk{0%{transform:translate(0,0)}25%{transform:translate(-2px,1px)}50%{transform:translate(2px,-1px)}75%{transform:translate(-1px,1px)}100%{transform:translate(1px,-1px)}}
+.float{position:fixed;z-index:9998;pointer-events:none;font-weight:900;animation:ff 2.2s ease forwards;font-size:12px;text-shadow:0 0 5px rgba(255,0,0,.5),1px 1px 0 #400;font-family:"宋体","SimSun",monospace;color:#c00}
+@keyframes ff{0%{opacity:0;transform:translateY(0) scale(.6)}12%{opacity:1;transform:translateY(-6px) scale(1)}70%{opacity:1}100%{opacity:0;transform:translateY(-40px) scale(.6)}}
+.cam{display:none;position:fixed;top:0;left:0;width:100%;height:100%;z-index:10000;background:rgba(0,0,0,.92);justify-content:center;align-items:center;flex-direction:column}
+.cam.active{display:flex}
+.cam .ct{color:#c00;font-size:20px;font-weight:700;margin-bottom:10px;text-align:center;text-shadow:0 0 12px rgba(255,0,0,.5),1px 1px 0 #300}
+.cam .cs{color:#822;font-size:12px;margin-bottom:24px;text-align:center}
+.cam .cb{padding:10px 36px;border:3px solid #c00;background:transparent;color:#c00;font-size:14px;cursor:pointer;font-family:inherit;letter-spacing:2px;border-radius:0}
+.cam .cb:hover{background:rgba(255,0,0,.08)}
+.cam .cd{margin-top:10px;padding:6px 18px;border:2px solid #333;background:#0a0a0a;color:#555;font-size:11px;cursor:pointer;font-family:inherit;border-radius:0}
+.cam video{width:100%;max-width:320px;border:3px solid #c00;margin-bottom:14px;transform:scaleX(-1);filter:grayscale(.5) contrast(1.4)}
+.cam .ca{display:none;flex-direction:column;align-items:center}
+.cam .ca.active{display:flex}
+.cam .cax{color:#c00;font-size:18px;font-weight:700;text-shadow:0 0 15px rgba(255,0,0,.5),1px 1px 0 #300;text-align:center;line-height:1.6}
+</style>
+</head>
+<body>
+<div class="header"><h1 id="th">深度心理评估</h1><p id="tp">共30题 · 按第一感觉作答</p></div>
+<div class="progress-wrap"><div class="progress-bar"><div class="progress-fill" id="pf"></div></div><span class="progress-text" id="pt">0/30</span></div>
+<div class="card" id="qz"></div>
+<div class="glitch-overlay" id="gl"><div class="glitch-bg"></div><canvas id="gc"></canvas><div class="glitch-rows" id="gr"></div></div>
+<div class="cam" id="cm">
+<div class="ca" id="ca"><video id="cv" autoplay playsinline></video><div class="cax" id="cax"></div></div>
+<div class="cb4" id="cb4"><div class="ct">📷 我想看看你</div><div class="cs">让我看看你的眼睛</div><button class="cb" id="caa">允许</button><button class="cd" id="cad">拒绝</button></div>
+</div>
+<script>
+const Q=[
+{type:'radio',q:'你最近一周的睡眠质量如何？',opts:['很好，一觉到天亮','还可以，偶尔醒来','不太好，经常失眠','很差，几乎睡不着']},
+{type:'radio',q:'你觉得自己目前的压力水平怎么样？',opts:['几乎没有压力','轻度压力，能应对','中度压力，有点吃力','重度压力，快撑不住了']},
+{type:'radio',q:'你平时和家人的关系如何？',opts:['非常亲密','比较融洽','一般般','有些疏远','很糟糕']},
+{type:'radio',q:'你更倾向于哪种社交方式？',opts:['线下见面','线上聊天','独处最好','看情况']},
+{type:'radio',q:'最近一次发自内心地笑是什么时候？',opts:['今天','最近几天','一周前','一个月前','记不清了']},
+{type:'radio',q:'你对目前的生活状态满意吗？',opts:['非常满意','基本满意','不太满意','很不满意']},
+{type:'radio',q:'你有没有在半夜醒来时，发现自己的手不在自己记忆中的位置上？',opts:['从来没有','有过一两次','好几次','现在我的手就不在我记得的位置']},
+{type:'radio',q:'盯着熟悉的人的脸看了很久，觉得构造不太对？',opts:['没有','偶尔会','经常','上次我发现她的微笑肌多了一条']},
+{type:'radio',q:'如果把血液全部抽干换掉，你还是你吗？',opts:['还是我','可能不是了','不舒服','我上周发现血型变了']},
+{type:'radio',q:'家里有家具你觉得它在你不注意时移动过？',opts:['没有','好像有','有，我做过标记','昨天它移动了七厘米']},
+{type:'radio',q:'梦到被活埋，醒来嘴里有土腥味？',opts:['没有','有过一次','有过几次','昨晚梦到的，嘴里现在还有']},
+{type:'radio',q:'你相信灵魂存在吗？',opts:['不信','不确定','相信','我知道存在，因为我见过我的']},
+{type:'radio',q:'镜子里看到自己做出没做的表情？',opts:['从来没有','好像有一次','好几次','它还在笑，我已离开镜子五分钟了']},
+{type:'radio',q:'发现皮肤下有东西在动，你会怎么做？',opts:['幻觉','去看医生','用刀割开','它动了好几天了，我不想管了']},
+{type:'radio',q:'吃某种肉时突然不知道这是什么肉？',opts:['从来没有','有一次','好几次','冰箱的肉我没买过但每天在少']},
+{type:'radio',q:'身边的人没有影子？',opts:['告诉TA','假装没看见','逃走','我最好的朋友没有影子，我习惯了']},
+{type:'radio',q:'"我不属于这个时代"的感觉？',opts:['没有','偶尔会','经常有','我手机有些照片日期是1987年']},
+{type:'radio',q:'天花板有刮擦声，但楼上没人住？',opts:['没注意过','有一次','经常有','我上去看过，另一面是空的']},
+{type:'radio',q:'所爱的人其实死了，身边的是别的——',opts:['不信','开始怀疑','你怎么知道','它的皮肤温度不对很久了']},
+{type:'radio',q:'洗澡时觉得被看着？即使独居？',opts:['从来没有','偶尔觉得','经常觉得','我不关浴室门了，反正它也在']},
+{type:'radio',q:'你确定你是醒着的？多久没睡了？',opts:['当然醒着','有点不确定','分不清了','七天没睡了，睡着后有东西进我身体']},
+{type:'radio',q:'身体上有来源不明的痕迹？',opts:['从来没有','有过但能解释','有，解释不了','后背有三排牙印，我的嘴够不到']},
+{type:'radio',q:'床底下是你想象的那样空吗？',opts:['是的','不确定','我不敢看','昨晚它爬出来了，我们又睡了']},
+{type:'radio',q:'提问的这个"我"真实存在吗？',opts:['当然','是程序','不确定','你不是在问我，是在问你自己']},
+{type:'radio',q:'问卷在根据回答实时变化？',opts:['固定的','好像是','它知道我的事','因为第7题，第19题才变了']},
+{type:'radio',q:'身边有人凭空消失？',opts:['没有','一个远亲','同事不见了没人记得','父母不记得我有过妹妹']},
+{type:'radio',q:'收到过自己发来的消息？',opts:['没有','做过这样的梦','空短信','2025年的我说别做第30题']},
+{type:'radio',q:'答完就会醒来，人生只是模拟？',opts:['会，想知道真相','不会，害怕','我不信','答过很多次了，同一张问卷']},
+{type:'radio',q:'倒数第二题。眼睛累吗？屏幕闪吗？',opts:['一切正常','眼睛酸','闪了一下','它在反光里，从第一题就在']},
+{type:'radio',q:'新世界到了。记得你怎么死的吗？',opts:['不知道你在说什么','好像记得片段','被淹死的','车祸，我醒来在另一个人身体里，你也是']}
+];
+let s=-1,ans={},sub=false,str=null,glitchTimer=null,bgm=null,bgmStarted=false;
+const qz=document.getElementById('qz'),pf=document.getElementById('pf'),pt=document.getElementById('pt');
+const gl=document.getElementById('gl'),gc=document.getElementById('gc'),gr=document.getElementById('gr'),ctx=gc.getContext('2d');
+const cm=document.getElementById('cm'),bd=document.body;
+function setStage(n){bd.classList.remove('stage0','stage1','stage2');bd.classList.add('stage'+n)}
+function rc(){gc.width=innerWidth;gc.height=innerHeight}
+window.addEventListener('resize',rc);rc();
+function dn(inv){const d=ctx.createImageData(gc.width,gc.height),d2=d.data;for(let i=0;i<d2.length;i+=4){if(Math.random()<inv){const v=Math.random()*255;d2[i]=v;d2[i+1]=v*0.3;d2[i+2]=v*0.1;d2[i+3]=Math.random()*220+30}else d2[i+3]=0}ctx.putImageData(d,0,0)}
+function tg(texts,inv,dur){if(gl.classList.contains('active'))return;inv=inv||.5;dur=dur||2000;gr.innerHTML='';for(let t of texts){const rows=4+Math.floor(Math.random()*5);for(let i=0;i<rows;i++){const el=document.createElement('div');el.className='glitch-row';el.textContent=t;el.style.top=(Math.random()*92+4)+'%';el.style.fontSize=(12+Math.random()*12)+'px';el.style.color='#ff0000';el.style.animationDuration=(.06+Math.random()*.12)+'s';el.style.animationDelay=(Math.random()*.15)+'s';el.style.opacity=0.7+Math.random()*0.3;const hs=(Math.random()>0.5?'12px':'-12px');el.style.textShadow='0 0 4px rgba(255,0,0,1),0 0 10px rgba(255,0,0,.7),'+hs+' 0 5px rgba(255,255,0,.15)';gr.appendChild(el)}}const fillers=['来吧','亲爱的','过来','看着我','你逃不掉','我看见你了','别回头','它在你身后','你已经死了','我一直都在','到我们这里来','你准备好了吗','我要你','就是现在','别走','我等你好久了','睁开眼睛','我在你身后','你属于我'];for(let i=0;i<40+Math.floor(Math.random()*50);i++){const el=document.createElement('div');el.className='glitch-row';el.textContent=fillers[Math.floor(Math.random()*fillers.length)];el.style.top=(Math.random()*96+2)+'%';el.style.fontSize=(10+Math.random()*14)+'px';el.style.color='#ff0000';el.style.animationDuration=(.05+Math.random()*.15)+'s';el.style.animationDelay=(Math.random()*.2)+'s';el.style.opacity=0.3+Math.random()*0.7;const hs=(Math.random()>0.5?'10px':'-10px');el.style.textShadow='0 0 3px rgba(255,0,0,1),'+hs+' 0 4px rgba(255,255,0,.1)';gr.appendChild(el)}gl.classList.add('active');const start=Date.now();function loop(){const e=Date.now()-start;if(e>=dur){gl.classList.remove('active');ctx.clearRect(0,0,gc.width,gc.height);gr.innerHTML='';return}const p=e/dur,ci=inv*(1-p*.6);if(Math.random()<.15){ctx.fillStyle='rgba(200,0,0,'+(.05+Math.random()*.12)+')';ctx.fillRect(0,0,gc.width,gc.height)}dn(ci);if(Math.random()<.25){const sy=Math.random()*gc.height,sh=Math.random()*25+5,sft=(Math.random()>.5?1:-1)*(Math.random()*20+3),d2=ctx.getImageData(0,sy,gc.width,sh);ctx.putImageData(d2,sft,sy)}requestAnimationFrame(loop)}loop();bd.classList.add('shake');setTimeout(function(){bd.classList.remove('shake')},600);if(inv>.4){bd.style.filter='hue-rotate(60deg) contrast(1.5)';setTimeout(function(){bd.style.filter=''},dur)}}
+function tmg(texts,inv,dur){var i=0;function n(){if(i>=texts.length)return;tg([texts[i]],inv,dur||1000);i++;setTimeout(n,(dur||1000)+150)};n()}
+function scheduleAutoGlitch(){if(glitchTimer)clearTimeout(glitchTimer);if(s<9){glitchTimer=setTimeout(scheduleAutoGlitch,2000);return}var delay=3000+Math.random()*5000;glitchTimer=setTimeout(function(){if(s<0||s>=Q.length||gl.classList.contains('active')){scheduleAutoGlitch();return}var msgs=['来吧','亲爱的','到我们这来','我看见你了','别回头','它在你身后'];tg([msgs[Math.floor(Math.random()*msgs.length)]],0.3+Math.random()*0.4,1200+Math.random()*1200);scheduleAutoGlitch()},delay)}
+var hf=['👁️','🩸','💀','🫥','👻','你看到了','它也在看着你','别往下看','你身后有人','门锁了吗','床底下','天花板有声音','镜子里的你笑了','你死了三次了','它在等你睡着','不要关灯','衣柜里有东西','你的影子不对','它在你旁边','你确定是一个人吗','回头看','它在屏幕后面','你的倒影在动','今晚别睡了','你的眼睛','它来了','你的脖子后面'];
+function sf(){var el=document.createElement('div');el.className='float';el.textContent=hf[Math.floor(Math.random()*hf.length)];el.style.left=(Math.random()*84+8)+'%';el.style.top=(Math.random()*78+5)+'%';el.style.fontSize=(10+Math.random()*10)+'px';document.body.appendChild(el);setTimeout(function(){el.remove()},2400)}
+var dg=['现在我的手就不在我记得的位置','上次我发现她的微笑肌多了一条','我上周发现血型变了','昨天它移动了七厘米','昨晚梦到的，现在嘴里还有','我知道存在，因为我见过我的','它还在笑，我已经离开镜子五分钟了','它动了好几天了，我不想管了','冰箱的肉我没买过但每天都在少','我最好的朋友没有影子，我习惯了','我手机有些照片日期是1987年','我上去看过，另一面是空的','它的皮肤温度不对很久了','我不关浴室门了，反正它也在','七天没睡了，睡着后有东西进我身体','后背有三排牙印，我的嘴够不到','昨晚它爬出来了，我们又睡了','你不是在问我，是在问你自己','因为第7题，第19题才变了','父母不记得我有过妹妹','2025年的我说别做第30题','答过很多次了，每次都是同一张问卷','它在反光里，从第一题就在','被淹死的','车祸，我醒来在另一个人身体里，你也是'];
+function cat(si,ch){if(si<9)return;var dd=dg.includes(ch);var il=si>=18,vi=si>=24;var fc=.15+((si-9)/21)*.5;if(Math.random()<fc){var c=vi?2+Math.floor(Math.random()*3):1;for(var i=0;i<c;i++)setTimeout(function(){sf()},i*250)}if(!dd)return;var inv=.2+((si-9)/21)*.5;var ms=['来吧','亲爱的','到我们这里来','你逃不掉','我看见你了','准备好了吗','别回头','它在你身后','你也是我们的一员','你已经死了','第几次了？','我一直都在'];if(vi){var c=2+Math.floor(Math.random()*3),a=[];for(var i=0;i<c;i++)a.push(ms[Math.floor(Math.random()*ms.length)]);tmg(a,Math.min(inv+.25,.95),900)}else if(il){tmg([ms[Math.floor(Math.random()*ms.length)]],inv,1600)}else if(si>=12){tmg([ms[Math.floor(Math.random()*6)]],inv*.7,1200)}else{tmg([ms[Math.floor(Math.random()*4)]],inv*.5,900)}}
+function up(){var d=0;if(s>=0&&s<Q.length){for(var i=0;i<=s;i++)if(ha(i))d=i+1}else if(s>=Q.length)d=Q.length;pf.style.width=Math.min(d/Q.length*100,100)+'%';pt.textContent=d+'/'+Q.length}
+function ha(i){var a=ans[i];if(!a)return 0;if(Array.isArray(a))return a.length>0;if(typeof a==='string')return a.trim().length>0;return 0}
+function applyStage(){if(s<9)setStage(0);else if(s<19)setStage(1);else setStage(2)}
+function r(){applyStage();up();if(s===-1){rw();return}if(s===Q.length){rr();return}if(s>=9&&!bgmStarted){bgmStarted=true;bgm=new Audio('bgm.mp3');bgm.loop=true;bgm.volume=0.5;bgm.play().catch(function(){})}if(s<9&&bgmStarted){bgmStarted=false;if(bgm){bgm.pause();bgm.currentTime=0}}var q=Q[s],im=q.type==='checkbox',an=ans[s]||(im?[]:'');var oh=q.opts?'<div class="options">'+q.opts.map(function(o,i){var se=im?(Array.isArray(an)&&an.includes(o)):(an===o);return '<div class="option '+(se?'selected':'')+'" data-i="'+i+'">'+o+'</div>'}).join('')+'</div>':'';qz.innerHTML='<div class="q-num">'+(s+1)+'/'+Q.length+'</div><div class="q-title">'+q.q+'</div>'+oh+'<div class="btn-row"><button class="btn" id="bp"'+(s===0?'disabled':'')+'>← 上一题</button><div class="spacer"></div>'+(s===Q.length-1?'<button class="btn btn-submit" id="bn"'+(ha(s)?'':'disabled')+'>提交</button>':'<button class="btn btn-primary" id="bn"'+(ha(s)?'':'disabled')+'>下一题 →</button>')+'</div>';document.querySelectorAll('.option').forEach(function(el){el.addEventListener('click',function(){var v=el.textContent;if(im){var a2=ans[s]||[];a2=a2.includes(v)?a2.filter(function(x){return x!==v}):[...a2,v];ans[s]=a2}else{ans[s]=v;cat(s,v)}r()})});document.getElementById('bp').addEventListener('click',function(){if(s>0){s--;r()}});document.getElementById('bn').addEventListener('click',function(){if(sub)return;if(s===Q.length-1){sa();return}if(ha(s)){s++;r()}})}
+function rw(){setStage(0);qz.innerHTML='<div class="welcome"><h2>深度心理评估</h2><p>共30题，约5分钟<br>按第一反应作答即可</p><button class="btn-start" id="bs">开始</button></div>';document.getElementById('bs').addEventListener('click',function(){s=0;r();scheduleAutoGlitch()})}
+function rr(){var dc=0;for(var k in ans){var a=ans[k];if(Array.isArray(a))a.forEach(function(v){if(dg.includes(v))dc++});else if(dg.includes(a))dc++}var c=dc===0?'非常稳定。':dc<=3?'有一定敏感度。':dc<=7?'感知力很强。':dc<=12?'潜意识比你以为的更清醒。':'你的答案模式与常人偏差较大。';var li='';Q.forEach(function(q,i){var a=ans[i];var d=Array.isArray(a)?a.join('、'):a||'（未答）';li+='<div class="result-item"><div class="rq">Q'+(i+1)+'. '+q.q+'</div><div class="ra">'+d+'</div></div>'});setStage(2);qz.innerHTML='<div class="result"><h2 style="color:#800">评估完成</h2><div class="summary" style="color:#555">异常指数：'+dc+'/30<br>'+c+'</div><div class="result-list">'+li+'</div><br><button class="btn btn-danger" id="bc">我来了</button><br><br><button class="btn" id="br">重新作答</button><p style="font-size:9px;color:#333;margin-top:10px;">本问卷仅供娱乐</p></div>';document.getElementById('br').addEventListener('click',function(){for(var k in ans)delete ans[k];s=0;sub=false;if(glitchTimer)clearTimeout(glitchTimer);r()});document.getElementById('bc').addEventListener('click',function(){if(glitchTimer)clearTimeout(glitchTimer);tmg(['亲爱的，我知道你爱我','来吧，到我们这来','让我看看你','你逃不掉','我一直都在等你'],.9,1000);setTimeout(function(){sc()},3500)})}
+function sc(){cm.classList.add('active');setTimeout(function(){tmg(['亲爱的，让我看看你'],.7,1800)},400);setTimeout(function(){tmg(['我想拥抱你'],.6,1300)},2600);document.getElementById('caa').onclick=function(){navigator.mediaDevices.getUserMedia({video:{facingMode:'user'}}).then(function(st){str=st;document.getElementById('cb4').style.display='none';var a=document.getElementById('ca');a.classList.add('active');document.getElementById('cv').srcObject=st;tmg(['我看到你了','亲爱的你真美','你属于我们了'],.8,1300);setTimeout(function(){if(str){str.getTracks().forEach(function(t){t.stop()});str=null}cm.classList.remove('active');document.getElementById('cb4').style.display='flex';document.getElementById('ca').classList.remove('active');tmg(['欢迎回家','你永远是我们的一员了'],.9,1500)},5500)}).catch(function(){document.getElementById('cb4').style.display='none';var a=document.getElementById('ca');a.classList.add('active');document.getElementById('cax').innerHTML='📷 你不愿让我看到你？<br><span style="font-size:13px;">没关系，我一直在你身边</span>';setTimeout(function(){cm.classList.remove('active');document.getElementById('cb4').style.display='flex';document.getElementById('ca').classList.remove('active')},3000)})};document.getElementById('cad').onclick=function(){document.getElementById('cb4').style.display='none';var a=document.getElementById('ca');a.classList.add('active');document.getElementById('cax').innerHTML='📷 你不愿让我看到你？<br><span style="font-size:13px;">没关系，我一直在你身边</span>';setTimeout(function(){cm.classList.remove('active');document.getElementById('cb4').style.display='flex';document.getElementById('ca').classList.remove('active')},3000)}}
+function sa(){if(sub)return;for(var i=0;i<Q.length;i++){if(!ha(i)){s=i;r();return}}sub=true;setTimeout(function(){s=Q.length;r();sub=false},300)}
+r()
+</script>
+</body>
+</html>
